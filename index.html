@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Books App</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>My Books</h1>
+      <button id="toggle-theme">🌙 Dark Mode</button>
+    </header>
+
+    <form id="book-form">
+      <input type="text" id="title" placeholder="Book Title" required />
+      <input type="text" id="author" placeholder="Author" required />
+      <button type="submit">Add Book</button>
+    </form>
+
+    <div>
+      <label><input type="checkbox" id="filter-fav" /> Show Favorites Only</label>
+    </div>
+
+    <ul id="book-list"></ul>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
