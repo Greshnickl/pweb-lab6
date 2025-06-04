@@ -5,8 +5,86 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>My Books App</title>
   <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-  <link rel="stylesheet" href="style.css" />
-  <script src="script.js" defer></script>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #000000;
+      --accent: #4a90e2;
+    }
+
+    .dark {
+      --bg: #1e1e1e;
+      --text: #f0f0f0;
+      --accent: #79b8ff;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: sans-serif;
+      padding: 20px;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: auto;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    form {
+      display: flex;
+      gap: 10px;
+      margin: 20px 0;
+      flex-wrap: wrap;
+    }
+
+    input, button {
+      padding: 10px;
+      font-size: 1rem;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .book {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--accent);
+      color: white;
+      padding: 10px;
+      margin: 5px 0;
+      border-radius: 5px;
+    }
+
+    .actions button {
+      margin-left: 5px;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.2em;
+      cursor: pointer;
+    }
+
+    .toggle-theme {
+      cursor: pointer;
+      background: none;
+      border: 1px solid var(--text);
+      padding: 5px 10px;
+    }
+
+    .filter {
+      margin: 10px 0;
+    }
+  </style>
 </head>
 <body>
 
@@ -39,6 +117,62 @@
       </template>
     </ul>
   </div>
+
+  <script>
+    function bookApp() {
+      return {
+        books: [],
+        newTitle: '',
+        newAuthor: '',
+        showOnlyFavorites: false,
+        darkMode: false,
+
+        init() {
+          const saved = localStorage.getItem('books');
+          this.books = saved ? JSON.parse(saved) : [];
+
+          const theme = localStorage.getItem('theme');
+          this.darkMode = theme === 'dark';
+        },
+
+        save() {
+          localStorage.setItem('books', JSON.stringify(this.books));
+        },
+
+        toggleTheme() {
+          this.darkMode = !this.darkMode;
+          localStorage.setItem('theme', this.darkMode ? 'dark' : 'light');
+        },
+
+        addBook() {
+          this.books.push({
+            title: this.newTitle,
+            author: this.newAuthor,
+            favorite: false
+          });
+          this.newTitle = '';
+          this.newAuthor = '';
+          this.save();
+        },
+
+        removeBook(index) {
+          this.books.splice(index, 1);
+          this.save();
+        },
+
+        toggleFavorite(index) {
+          this.books[index].favorite = !this.books[index].favorite;
+          this.save();
+        },
+
+        get filteredBooks() {
+          return this.showOnlyFavorites
+            ? this.books.filter(b => b.favorite)
+            : this.books;
+        }
+      }
+    }
+  </script>
 
 </body>
 </html>
