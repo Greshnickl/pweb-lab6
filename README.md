@@ -41,11 +41,3 @@ You can also visit the **live version** hosted via GitHub Pages:
 3. Mark it as favorite by clicking ❤️
 4. Enable the “Show favorites only” checkbox to filter
 5. Switch between Light/Dark theme using the button in the top-right corner
-
----
-
-## 🧪 Development Notes
-
-- App state is **fully in runtime**
-- No backend or build system
-- App can be shown in different git commits (development stages
