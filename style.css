@@ -4,7 +4,7 @@
   --accent: #4a90e2;
 }
 
-body.dark {
+.dark {
   --bg: #1e1e1e;
   --text: #f0f0f0;
   --accent: #79b8ff;
@@ -14,8 +14,8 @@ body {
   background: var(--bg);
   color: var(--text);
   font-family: sans-serif;
-  margin: 0;
   padding: 20px;
+  transition: background 0.3s, color 0.3s;
 }
 
 .container {
@@ -33,6 +33,7 @@ form {
   display: flex;
   gap: 10px;
   margin: 20px 0;
+  flex-wrap: wrap;
 }
 
 input, button {
@@ -40,12 +41,12 @@ input, button {
   font-size: 1rem;
 }
 
-#book-list {
+ul {
   list-style: none;
   padding: 0;
 }
 
-.book-item {
+.book {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -55,6 +56,23 @@ input, button {
   margin: 5px 0;
   border-radius: 5px;
 }
-.book-item .actions button {
+
+.actions button {
   margin-left: 5px;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.2em;
+  cursor: pointer;
+}
+
+.toggle-theme {
+  cursor: pointer;
+  background: none;
+  border: 1px solid var(--text);
+  padding: 5px 10px;
+}
+
+.filter {
+  margin: 10px 0;
 }
