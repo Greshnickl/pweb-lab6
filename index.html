@@ -1,31 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" x-data="bookApp()" x-init="init()" :class="{ 'dark': darkMode }">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>My Books App</title>
+  <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
   <link rel="stylesheet" href="style.css" />
+  <script src="script.js" defer></script>
 </head>
 <body>
+
   <div class="container">
     <header>
       <h1>My Books</h1>
-      <button id="toggle-theme">🌙 Dark Mode</button>
+      <button class="toggle-theme" @click="toggleTheme()"
+        x-text="darkMode ? '☀️ Light Mode' : '🌙 Dark Mode'"></button>
     </header>
 
-    <form id="book-form">
-      <input type="text" id="title" placeholder="Book Title" required />
-      <input type="text" id="author" placeholder="Author" required />
+    <form @submit.prevent="addBook()">
+      <input type="text" placeholder="Title" x-model="newTitle" required />
+      <input type="text" placeholder="Author" x-model="newAuthor" required />
       <button type="submit">Add Book</button>
     </form>
 
-    <div>
-      <label><input type="checkbox" id="filter-fav" /> Show Favorites Only</label>
+    <div class="filter">
+      <label><input type="checkbox" x-model="showOnlyFavorites" /> Show favorites only</label>
     </div>
 
-    <ul id="book-list"></ul>
+    <ul>
+      <template x-for="(book, index) in filteredBooks" :key="index">
+        <li class="book">
+          <span x-text="`${book.title} by ${book.author}`"></span>
+          <div class="actions">
+            <button @click="toggleFavorite(index)" x-text="book.favorite ? '❤️' : '🤍'"></button>
+            <button @click="removeBook(index)">🗑️</button>
+          </div>
+        </li>
+      </template>
+    </ul>
   </div>
 
-  <script src="script.js"></script>
 </body>
 </html>
